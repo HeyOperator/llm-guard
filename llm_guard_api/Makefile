@@ -3,8 +3,11 @@
 ### --------------------------------------------------------------------------------------------------------------------
 
 # Docker config
-DOCKER_IMAGE_NAME=laiyer/llm-guard-api
+# DOCKER_IMAGE_NAME=europe-west3-docker.pkg.dev/heyoperator-dev/operator-be/llmguard
+DOCKER_IMAGE_NAME=europe-west3-docker.pkg.dev/heyoperator-prod/docker/llmguard
 VERSION=0.3.14
+
+# europe-west3-docker.pkg.dev/heyoperator-dev/operator-be/llmguard
 
 # Other config
 NO_COLOR=\033[0m
@@ -16,7 +19,7 @@ install:
 	@python -m pip install ".[cpu]"
 
 build-docker-multi:
-	@docker buildx build --platform linux/amd64,linux/arm64 -t $(DOCKER_IMAGE_NAME):$(VERSION) -t $(DOCKER_IMAGE_NAME):latest . --push
+	@docker buildx build --platform linux/amd64 -t $(DOCKER_IMAGE_NAME):$(VERSION) -t $(DOCKER_IMAGE_NAME):latest . --push
 
 build-docker-cuda-multi:
 	@docker buildx build --platform linux/amd64 -t $(DOCKER_IMAGE_NAME):$(VERSION)-cuda -t $(DOCKER_IMAGE_NAME):latest-cuda -f Dockerfile-cuda . --push
